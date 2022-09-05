@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:life_expense_manager/enums/ExpenseFilter.dart';
+import 'package:life_expense_manager/models/ExpenseByMonth.dart';
 import 'components/CallHelper.dart';
 import 'components/CallItemModel.dart';
 import 'helpers/ExpenseHelper.dart';
@@ -98,9 +100,10 @@ class _MyHomePageState extends State<MyHomePage>
         controller: tabController,
         children: [
           const Icon(Icons.camera_alt),
+          // expense by date
           ListView.builder(
             itemBuilder: (context, position) {
-              ExpenseModel expense = ExpenseHelper.getExpense(filterBy: 'date',value: '05-09-2022:13:20');
+              ExpenseModel expense = ExpenseHelper.getExpenseByDate(filterBy: ExpenseFilter.date,value: '05-09-2022:13:20');
 
               return Column(
                 children: <Widget>[
@@ -162,9 +165,10 @@ class _MyHomePageState extends State<MyHomePage>
             },
             itemCount: ExpenseHelper.itemCount,
           ),
+        // expense by month
         ListView.builder(
           itemBuilder: (context, position) {
-            StatusItemModel statusItemModel = StatusHelper.getStatusItem(position);
+            ExpenseByMonth expenseByMonth = ExpenseHelper.getExpenseByMonth(filterBy: ExpenseFilter.month,value:'2');
 
             return Column(
               children: <Widget>[
@@ -173,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage>
                   child: Row(
                     children: <Widget>[
                       const Icon(
-                        Icons.account_circle,
+                        Icons.money,
                         size: 64.0,
                       ),
                       Expanded(
@@ -187,7 +191,7 @@ class _MyHomePageState extends State<MyHomePage>
                                 MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    statusItemModel.name,
+                                    expenseByMonth.month.toString(),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 20.0),
@@ -197,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage>
                               Padding(
                                 padding: const EdgeInsets.only(top: 2.0),
                                 child: Text(
-                                  statusItemModel.dateTime,
+                                  expenseByMonth.amount.toString(),
                                   style: const TextStyle(
                                       color: Colors.black45, fontSize: 16.0),
                                 ),
@@ -215,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage>
           },
           itemCount: StatusHelper.itemCount,
         ),
+          //expense by year
           ListView.builder(
             itemBuilder: (context, position) {
               CallItemModel callItemModel = CallHelper.getCallItem(position);
