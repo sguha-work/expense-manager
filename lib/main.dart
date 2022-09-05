@@ -4,10 +4,7 @@ import 'package:life_expense_manager/models/ExpenseByMonth.dart';
 import 'components/CallHelper.dart';
 import 'components/CallItemModel.dart';
 import 'helpers/ExpenseHelper.dart';
-import 'components/ChatItemModel.dart';
 import 'models/Expense.dart';
-import 'services/StatusHelper.dart';
-import 'models/StatusItemModel.dart';
 
 void main() => runApp(MyApp());
 
@@ -217,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage>
               ],
             );
           },
-          itemCount: StatusHelper.itemCount,
+          itemCount: ExpenseHelper.itemCount,
         ),
           //expense by year
           ListView.builder(
